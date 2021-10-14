@@ -1,0 +1,33 @@
+# /etc/conf.d/finalcoind: config file for /etc/init.d/finalcoind
+
+# Config file location
+#FINALCOIND_CONFIGFILE="/etc/finalcoin/finalcoin.conf"
+
+# What directory to write pidfile to?  (created and owned by $FINALCOIND_USER)
+#FINALCOIND_PIDDIR="/var/run/finalcoind"
+
+# What filename to give the pidfile
+#FINALCOIND_PIDFILE="${FINALCOIND_PIDDIR}/finalcoind.pid"
+
+# Where to write finalcoind data (be mindful that the blockchain is large)
+#FINALCOIND_DATADIR="/var/lib/finalcoind"
+
+# User and group to own finalcoind process
+#FINALCOIND_USER="finalcoin"
+#FINALCOIND_GROUP="finalcoin"
+
+# Path to finalcoind executable
+#FINALCOIND_BIN="/usr/bin/finalcoind"
+
+# Nice value to run finalcoind under
+#FINALCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#FINALCOIND_OPTS=""
+
+# The timeout in seconds OpenRC will wait for finalcoind to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+FINALCOIND_SIGTERM_TIMEOUT=600

@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+#
+#  finalcoind The finalcoin core server.
+#
+#
+# chkconfig: 345 80 20
+# description: finalcoind
+# processname: finalcoind
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+# you can override defaults in /etc/sysconfig/finalcoind, see below
+if [ -f /etc/sysconfig/finalcoind ]; then
+        . /etc/sysconfig/finalcoind
+fi
+
+RETVAL=0
+
+prog=finalcoind
+# you can override the lockfile via FINALCOIND_LOCKFILE in /etc/sysconfig/finalcoind
+lockfile=${FINALCOIND_LOCKFILE-/var/lock/subsys/finalcoind}
+
+# finalcoind defaults to /usr/bin/finalcoind, override with FINALCOIND_BIN
+finalcoind=${FINALCOIND_BIN-/usr/bin/finalcoind}
+
+# finalcoind opts default to -disablewallet, override with FINALCOIND_OPTS
+finalcoind_opts=${FINALCOIND_OPTS--disablewallet}
+
+start() {
+    echo -n $"Starting $prog: "
+    daemon $DAEMONOPTS $finalcoind $finalcoind_opts
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog -t600
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status $prog
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: service $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac

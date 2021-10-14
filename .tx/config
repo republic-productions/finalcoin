@@ -1,0 +1,7 @@
+[main]
+host = https://www.transifex.com
+
+[finalcoin.qt-translation-022x]
+file_filter = src/qt/locale/finalcoin_<lang>.xlf
+source_file = src/qt/locale/finalcoin_en.xlf
+source_lang = en
